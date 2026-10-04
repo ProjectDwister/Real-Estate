@@ -1,0 +1,31 @@
+name: Validate public dataset
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check public CSV schema and privacy guard
+        run: |
+          python - <<'PY'
+          import csv, pathlib
+          p=pathlib.Path('data/master_transactions.csv')
+          if not p.exists(): raise SystemExit('Missing data/master_transactions.csv')
+          with p.open(encoding='utf-8-sig', newline='') as f:
+              r=csv.reader(f); header=next(r)
+          forbidden={'seller_name','purchaser_name'}
+          bad=forbidden.intersection(header)
+          if bad: raise SystemExit(f'Private columns present in public CSV: {sorted(bad)}')
+          required={'year','registration_date','doc_no','document_name','village','property_no'}
+          missing=required.difference(header)
+          if missing: raise SystemExit(f'Missing required columns: {sorted(missing)}')
+          print('Public dataset validation passed')
+          PY
