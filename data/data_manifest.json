@@ -1,0 +1,121 @@
+{
+  "base": [
+    "data/master_transactions.csv"
+  ],
+  "enriched": [
+    {
+      "url": "data/enriched/2025-01.csv",
+      "year": 2025,
+      "month": "2025-01",
+      "records": 41
+    },
+    {
+      "url": "data/enriched/2025-02.csv",
+      "year": 2025,
+      "month": "2025-02",
+      "records": 21
+    },
+    {
+      "url": "data/enriched/2025-03.csv",
+      "year": 2025,
+      "month": "2025-03",
+      "records": 28
+    },
+    {
+      "url": "data/enriched/2025-04.csv",
+      "year": 2025,
+      "month": "2025-04",
+      "records": 22
+    },
+    {
+      "url": "data/enriched/2025-05.csv",
+      "year": 2025,
+      "month": "2025-05",
+      "records": 21
+    },
+    {
+      "url": "data/enriched/2025-06.csv",
+      "year": 2025,
+      "month": "2025-06",
+      "records": 18
+    },
+    {
+      "url": "data/enriched/2025-07.csv",
+      "year": 2025,
+      "month": "2025-07",
+      "records": 15
+    },
+    {
+      "url": "data/enriched/2025-08.csv",
+      "year": 2025,
+      "month": "2025-08",
+      "records": 14
+    },
+    {
+      "url": "data/enriched/2025-09.csv",
+      "year": 2025,
+      "month": "2025-09",
+      "records": 18
+    },
+    {
+      "url": "data/enriched/2025-10.csv",
+      "year": 2025,
+      "month": "2025-10",
+      "records": 13
+    },
+    {
+      "url": "data/enriched/2025-11.csv",
+      "year": 2025,
+      "month": "2025-11",
+      "records": 20
+    },
+    {
+      "url": "data/enriched/2025-12.csv",
+      "year": 2025,
+      "month": "2025-12",
+      "records": 34
+    },
+    {
+      "url": "data/enriched/2026-01.csv",
+      "year": 2026,
+      "month": "2026-01",
+      "records": 48
+    },
+    {
+      "url": "data/enriched/2026-02.csv",
+      "year": 2026,
+      "month": "2026-02",
+      "records": 27
+    },
+    {
+      "url": "data/enriched/2026-03.csv",
+      "year": 2026,
+      "month": "2026-03",
+      "records": 26
+    },
+    {
+      "url": "data/enriched/2026-04.csv",
+      "year": 2026,
+      "month": "2026-04",
+      "records": 20
+    },
+    {
+      "url": "data/enriched/2026-05.csv",
+      "year": 2026,
+      "month": "2026-05",
+      "records": 18
+    },
+    {
+      "url": "data/enriched/2026-06.csv",
+      "year": 2026,
+      "month": "2026-06",
+      "records": 28
+    },
+    {
+      "url": "data/enriched/2026-07.csv",
+      "year": 2026,
+      "month": "2026-07",
+      "records": 2
+    }
+  ]
+}
