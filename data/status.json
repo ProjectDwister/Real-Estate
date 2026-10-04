@@ -1,6 +1,6 @@
 {
   "last_built_at": "04 Oct 2026, 21:26",
-  "summary": "198 sanitized records loaded • Anik / 1A/1 • 2026",
-  "quality_label": "Historical backfill in progress",
-  "records": 198
+  "summary": "463 sanitized records loaded • 265 from 2025 + 198 from 2026",
+  "quality_label": "2025-2026 loaded • 2014-2024 backfill pending",
+  "records": 463
 }
