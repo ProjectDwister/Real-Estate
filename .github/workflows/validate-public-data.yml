@@ -16,16 +16,37 @@ jobs:
       - name: Check public CSV schema and privacy guard
         run: |
           python - <<'PY'
-          import csv, pathlib
-          p=pathlib.Path('data/master_transactions.csv')
-          if not p.exists(): raise SystemExit('Missing data/master_transactions.csv')
-          with p.open(encoding='utf-8-sig', newline='') as f:
-              r=csv.reader(f); header=next(r)
+          import csv, json, pathlib
+
           forbidden={'seller_name','purchaser_name'}
-          bad=forbidden.intersection(header)
-          if bad: raise SystemExit(f'Private columns present in public CSV: {sorted(bad)}')
           required={'year','registration_date','doc_no','document_name','village','property_no'}
-          missing=required.difference(header)
-          if missing: raise SystemExit(f'Missing required columns: {sorted(missing)}')
-          print('Public dataset validation passed')
+
+          manifest=pathlib.Path('data/data_manifest.json')
+          if not manifest.exists():
+              raise SystemExit('Missing data/data_manifest.json')
+          m=json.loads(manifest.read_text(encoding='utf-8'))
+          csvs=[pathlib.Path(x) for x in m.get('base',[])]
+          csvs += [pathlib.Path(x['url'] if isinstance(x,dict) else x) for x in m.get('enriched',[])]
+
+          if not csvs:
+              raise SystemExit('Manifest contains no data files')
+
+          total=0
+          for p in csvs:
+              if not p.exists():
+                  raise SystemExit(f'Missing manifest data file: {p}')
+              with p.open(encoding='utf-8-sig',newline='') as f:
+                  r=csv.reader(f)
+                  header=next(r)
+                  rows=sum(1 for _ in r)
+              bad=forbidden.intersection(header)
+              if bad:
+                  raise SystemExit(f'Private columns in {p}: {sorted(bad)}')
+              missing=required.difference(header)
+              if missing:
+                  raise SystemExit(f'Missing required columns in {p}: {sorted(missing)}')
+              total += rows
+              print(f'{p}: {rows} rows OK')
+
+          print(f'Public dataset validation passed across {len(csvs)} files ({total} raw rows before browser dedupe)')
           PY
