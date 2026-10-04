@@ -1,0 +1,14 @@
+# Local/private raw inputs - never publish party names or raw Index II files
+data/input_metadata/*
+!data/input_metadata/.gitkeep
+data/input_parsed_indexii/*
+!data/input_parsed_indexii/.gitkeep
+downloads/
+local_data/
+*.xlsx
+*.xls
+*.html
+*.png
+__pycache__/
+.venv/
+.env
