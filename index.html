@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mumbai Real Estate Tracker</title>
+  <meta name="description" content="Mumbai property registration tracker built from Maharashtra IGR registration metadata and selected Index II extracts." />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.2/papaparse.min.js"></script>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <div class="eyebrow">MUMBAI PROPERTY REGISTRATION INTELLIGENCE</div>
+      <h1>Mumbai Real Estate Tracker</h1>
+      <p class="subtitle">Registered transactions, price signals, rentals and registration activity — designed for 2014 onward.</p>
+    </div>
+    <div class="update-card">
+      <span>Dataset build</span>
+      <strong id="lastUpdated">Loading…</strong>
+      <small id="coverageSummary"></small>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel coverage-panel">
+      <div class="section-head">
+        <div>
+          <h2>Coverage</h2>
+          <p>Historical backfill status by registration year. Charts use only records currently loaded into the public dataset.</p>
+        </div>
+        <div class="pill" id="datasetQuality">Building dataset</div>
+      </div>
+      <div id="coverageGrid" class="coverage-grid"></div>
+    </section>
+
+    <section class="panel filters">
+      <div class="filter-grid">
+        <label>Year<select id="yearFilter"><option value="all">All years</option></select></label>
+        <label>Village<select id="villageFilter"><option value="all">All villages</option></select></label>
+        <label>Property / CTS<select id="propertyFilter"><option value="all">All property nos.</option></select></label>
+        <label>Document group<select id="docGroupFilter"><option value="all">All groups</option></select></label>
+        <label>Document type<select id="docTypeFilter"><option value="all">All types</option></select></label>
+        <label>Search<input id="searchBox" placeholder="building, unit, document no…" /></label>
+      </div>
+      <div class="filter-actions">
+        <button class="secondary" id="resetFilters">Reset</button>
+        <button id="downloadCsv">Download filtered CSV</button>
+      </div>
+    </section>
+
+    <section class="kpis">
+      <article class="kpi"><span>Registrations</span><strong id="kpiRecords">0</strong><small>records in selected view</small></article>
+      <article class="kpi"><span>Sale / ATS</span><strong id="kpiSale">0</strong><small>sale-linked registrations</small></article>
+      <article class="kpi"><span>Rent / Licence</span><strong id="kpiRent">0</strong><small>rental registrations</small></article>
+      <article class="kpi"><span>Median sale rate</span><strong id="kpiRate">—</strong><small>when Index II value + area available</small></article>
+      <article class="kpi"><span>Median registered rent</span><strong id="kpiRentAmount">—</strong><small>when rental terms available</small></article>
+      <article class="kpi"><span>Median consideration</span><strong id="kpiConsideration">—</strong><small>sale consideration</small></article>
+    </section>
+
+    <section class="chart-grid">
+      <article class="panel chart-panel"><h2>Registrations by year</h2><canvas id="annualChart"></canvas></article>
+      <article class="panel chart-panel"><h2>Monthly registration activity</h2><canvas id="monthlyChart"></canvas></article>
+      <article class="panel chart-panel"><h2>Document mix</h2><canvas id="docTypeChart"></canvas></article>
+      <article class="panel chart-panel"><h2>Median sale rate by year</h2><canvas id="rateChart"></canvas></article>
+      <article class="panel chart-panel"><h2>Median registered rent by year</h2><canvas id="rentChart"></canvas></article>
+      <article class="panel chart-panel"><h2>Most active buildings / descriptions</h2><canvas id="buildingChart"></canvas></article>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="section-head table-head">
+        <div>
+          <h2>Registration records</h2>
+          <p id="tableCount">0 rows</p>
+        </div>
+        <span class="muted">Party names are intentionally excluded from the public dataset.</span>
+      </div>
+      <div class="table-wrap">
+        <table id="recordsTable">
+          <thead>
+            <tr>
+              <th>Year</th><th>Date</th><th>Doc No.</th><th>Group</th><th>Document Type</th>
+              <th>Village</th><th>Property / CTS</th><th>Building</th><th>Unit</th><th>Area (sq ft)</th>
+              <th>Consideration</th><th>Market Value</th><th>Rate / sq ft</th><th>Rent</th><th>SRO</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel methodology">
+      <h2>Methodology & data quality</h2>
+      <div class="method-grid">
+        <div><strong>Primary source</strong><p>Maharashtra IGR registration search metadata and selected Index II extracts collected from the public portal.</p></div>
+        <div><strong>Public-data policy</strong><p>Seller and purchaser names are stripped before publishing. Raw downloads remain local and are git-ignored.</p></div>
+        <div><strong>Price metrics</strong><p>Sale ₹/sq ft is shown only when transaction consideration and a usable area are available. Missing values are not imputed.</p></div>
+        <div><strong>Updates</strong><p>GitHub Pages redeploys automatically whenever the sanitized dataset is pushed. IGR captcha remains a human step where required.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Built for Mumbai real-estate registration tracking • Public dashboard contains sanitized transaction fields only</footer>
+  <script src="app.js"></script>
+</body>
+</html>
